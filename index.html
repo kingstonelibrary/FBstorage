@@ -35,7 +35,6 @@
   </script>
   <script>
     document.getElementById('upload').addEventListener('click', ()=>{
-      console.log('clicked!!');
       
         var files = document.getElementById('avatar').files;
         var image = files[0];
@@ -44,6 +43,7 @@
         ref.put(image).then((snapshot) => {
             ref.getDownloadURL()
             .then((url)=>{
+              console.log('URL:' + url);
                 document.getElementById('imgUpload').setAttribute("src", url);
             }) 
         })
