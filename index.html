@@ -15,7 +15,10 @@
 
 </head>
 <body>
-
+  <label for="avatar">ファイル選択</label>
+  <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
+  <button id="upload">送信</button><br><br><br>
+  <div id="imgUpload"></div>
 
   <script src="https://www.gstatic.com/firebasejs/5.8.5/firebase.js"></script>
   <script>
@@ -29,6 +32,20 @@
       messagingSenderId: "1055939160518"
     };
     firebase.initializeApp(config);
+  </script>
+  <script>
+    document.getElementById('upload').addEventListener('click', ()=>{
+        var files = document.getElementById('avatar').files;
+        var image = files[0];
+
+        var ref = firebase.storage().ref().child(image.name);
+        ref.put(image).then((snapshot) => {
+            ref.getDownloadURL()
+            .then((url)=>{
+                document.getElementById('imgUpload').setAttribute("src", url);
+            }) 
+        })
+    })
   </script>
 </body>
 </html>
